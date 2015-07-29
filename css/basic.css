@@ -1,0 +1,330 @@
+@charset "UTF-8";
+/**
+ * function: 样式重置;
+ * author: ozil;
+ * date: 2015-01-05;
+ */
+/***********************************样式重置 start ***********************************/
+html,body,p,div,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,form,fieldset,legend,input,select,textarea,button,th,td{margin:0;padding:0;}
+h1,h2,h3,h4,h5,h6{font-size:100%;}
+ul,dl,ol{list-style:none;}
+img,fieldset,input[type="submit"]{border:0 none;}
+img{display:inline-block;overflow:hidden;vertical-align:top;}
+em{font-style:normal;}
+strong{font-weight:normal;}
+table{border-collapse:collapse;border-spacing:0;}
+button,input[type="button"]{cursor:pointer;border:0 none;-webkit-appearance: button;}
+textarea{word-wrap:break-word;resize:none;}  /* word-wrap for opera, resize for webkit */
+menu{margin:0;padding:0;}
+body {font-family:Helvetica;font-size: 14px;line-height: 1.42857143;color: #333333;background-color: #ffffff;-webkit-user-select:none;-webkit-text-size-adjust:none;}
+body{-webkit-text-rendering: geometricPrecision;text-rendering: geometricPrecision;-webkit-font-smoothing: antialiased;font-smoothing: antialiased;}
+input[type="number"]{-webkit-user-select:text;}
+a {background-color: transparent;}
+a,a:visited {text-decoration: underline;}
+a:active,a:hover{outline: 0;}
+a,button,input,img{-webkit-touch-callout:none;}/* 1.ios 长按时不触发系统的菜单 2.禁止长按时下载图片 */
+input,select,textarea{outline:none;}
+a,button,input,div{/* 去除android4.0以下 a/button/input标签被点击时产生的边框 因为边框引起了不少bug */
+-webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+a:focus{outline: none;}
+@media all and (-webkit-transform-3d){/* android4.0+ ios4+ 恢复按钮被点击时产生的效果 */
+/*a,button,input{-webkit-tap-highlight-color:rgba(130,130,130,.52)};*/
+}
+* {-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;}
+*:before,*:after {-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;}
+label {display: inline-block;max-width: 100%;margin-bottom: 5px;font-weight: 700;}
+input[type="number"],
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+input[type="text"],
+button { -webkit-appearance: none; } /*iPhone上的safari解析input[type="submit"]和input[type="reset"]按钮会以 苹果浏览器的默认UI渲染*/
+/***********************************样式重置 end ***********************************/
+
+/***********************************流式布局 start ***********************************/
+
+.col-mb-1, .col-mb-2, .col-mb-3, .col-mb-4, .col-mb-5, .col-mb-6, .col-mb-7, .col-mb-8, .col-mb-9, .col-mb-10, .col-mb-11, .col-mb-12 {
+  float: left;
+}
+.col-mb-12 {
+  width: 100%;
+}
+.col-mb-11 {
+  width: 91.66666667%;
+}
+.col-mb-10 {
+  width: 83.33333333%;
+}
+.col-mb-9 {
+  width: 75%;
+}
+.col-mb-8 {
+  width: 66.66666667%;
+}
+.col-mb-7 {
+  width: 58.33333333%;
+}
+.col-mb-6 {
+  width: 50%;
+}
+.col-mb-5 {
+  width: 41.66666667%;
+}
+.col-mb-4 {
+  width: 33.33333333%;
+}
+.col-mb-3 {
+  width: 25%;
+}
+.col-mb-2 {
+  width: 16.66666667%;
+}
+.col-mb-1 {
+  width: 8.33333333%;
+}
+
+.col-mb-pull-12 {
+  right: 100%;
+}
+.col-mb-pull-11 {
+  right: 91.66666667%;
+}
+.col-mb-pull-10 {
+  right: 83.33333333%;
+}
+.col-mb-pull-9 {
+  right: 75%;
+}
+.col-mb-pull-8 {
+  right: 66.66666667%;
+}
+.col-mb-pull-7 {
+  right: 58.33333333%;
+}
+.col-mb-pull-6 {
+  right: 50%;
+}
+.col-mb-pull-5 {
+  right: 41.66666667%;
+}
+.col-mb-pull-4 {
+  right: 33.33333333%;
+}
+.col-mb-pull-3 {
+  right: 25%;
+}
+.col-mb-pull-2 {
+  right: 16.66666667%;
+}
+.col-mb-pull-1 {
+  right: 8.33333333%;
+}
+.col-mb-pull-0 {
+  right: auto;
+}
+.col-mb-push-12 {
+  left: 100%;
+}
+.col-mb-push-11 {
+  left: 91.66666667%;
+}
+.col-mb-push-10 {
+  left: 83.33333333%;
+}
+.col-mb-push-9 {
+  left: 75%;
+}
+.col-mb-push-8 {
+  left: 66.66666667%;
+}
+.col-mb-push-7 {
+  left: 58.33333333%;
+}
+.col-mb-push-6 {
+  left: 50%;
+}
+.col-mb-push-5 {
+  left: 41.66666667%;
+}
+.col-mb-push-4 {
+  left: 33.33333333%;
+}
+.col-mb-push-3 {
+  left: 25%;
+}
+.col-mb-push-2 {
+  left: 16.66666667%;
+}
+.col-mb-push-1 {
+  left: 8.33333333%;
+}
+.col-mb-push-0 {
+  left: auto;
+}
+
+.col-mb-offset-12 {
+  margin-left: 100%;
+}
+.col-mb-offset-11 {
+  margin-left: 91.66666667%;
+}
+.col-mb-offset-10 {
+  margin-left: 83.33333333%;
+}
+.col-mb-offset-9 {
+  margin-left: 75%;
+}
+.col-mb-offset-8 {
+  margin-left: 66.66666667%;
+}
+.col-mb-offset-7 {
+  margin-left: 58.33333333%;
+}
+.col-mb-offset-6 {
+  margin-left: 50%;
+}
+.col-mb-offset-5 {
+  margin-left: 41.66666667%;
+}
+.col-mb-offset-4 {
+  margin-left: 33.33333333%;
+}
+.col-mb-offset-3 {
+  margin-left: 25%;
+}
+.col-mb-offset-2 {
+  margin-left: 16.66666667%;
+}
+.col-mb-offset-1 {
+  margin-left: 8.33333333%;
+}
+.col-mb-offset-0 {
+  margin-left: 0%;
+}
+
+
+.col-mb-1, .col-mb-2, .col-mb-3, .col-mb-4, .col-mb-5, .col-mb-6, .col-mb-7, .col-mb-8, .col-mb-9, .col-mb-10, .col-mb-11, .col-mb-12{
+    position: relative;
+    min-height: 1px;
+    padding-right: 5px;
+    padding-left: 5px;    
+}
+
+
+.g-row{
+  margin-left: -5px;
+  margin-right: -5px;
+}
+/***********************************流式布局 end ***********************************/
+
+/***********************************功能 end ***********************************/
+
+.f-clearfix:before,
+.f-clearfix:after {
+  content: " ";
+  display: table;    
+}
+
+.f-clearfix:after {
+  clear: both;    
+}
+
+.f-pull-right {
+  float: right !important;
+}
+.f-pull-left {
+  float: left !important;
+}
+
+/***********************************功能 end ***********************************/
+
+/***********************************button end ***********************************/
+.u-btn{
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  text-decoration: none;
+  -webkit-user-select: none;
+  user-select: none;    
+}
+
+.u-btn-primary {
+  color: rgb(153,21,32);
+  background-color: rgb(254,225,1);
+  border-color: rgb(254,225,1);
+  background-image: -webkit-linear-gradient(top, rgb(255,247,0) 0%, rgb(255,192,1) 100%);
+  background-image: linear-gradient(to bottom, rgb(255,247,0) 0%,  rgb(255,192,1) 100%);
+  background-repeat: repeat-x;  
+}
+
+.u-btn-primary:hover,
+.u-btn-primary:focus,
+.u-btn-primary.focus,
+.u-btn-primary:active,
+.u-btn-primary.active {
+  color: rgb(153,21,32);
+  background-color: rgb(219, 201, 56);
+  border-color: rgb(219, 201, 56);
+}
+
+/***********************************button end ***********************************/
+
+/***********************************form start ***********************************/
+.u-form-group {
+  margin-bottom: 15px;
+}
+
+.u-form-horizontal .u-form-group {
+  margin-left: -5px;
+  margin-right: -5px;
+}
+
+.u-form-horizontal .u-control-label {
+    text-align: right;
+    margin-bottom: 0;
+    padding-top: 7px;
+}
+
+.u-form-control {
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555555;
+  background-color: #ffffff;
+  background-image: none;
+  border: 1px solid #cccccc;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.u-form-control:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+.u-form-control::-webkit-input-placeholder {
+  color: #999999;
+}
+/***********************************form end ***********************************/
