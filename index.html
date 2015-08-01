@@ -221,9 +221,10 @@
 				var _date;
 				$('#btnId').on('click', function() {
 					$('#mioId').yue_date({
+//						type:'notime',
 						callback: function(result) {
 							_date = result.date;
-							$('#btnId').val(_date.getHours()+':'+_date.getMinutes());
+							$('#btnId').val(result.hour+':'+result.minute);
 						}
 					});
 				});
@@ -231,7 +232,7 @@
 					$('#mioId').yue_date({
 						date: new Date(_date),
 						callback: function(result) {
-							$('#btnEndId').val(result.hour > 10 ? result.hour:'0' + result.hour);
+							$('#btnEndId').val(result.hour+':'+result.minute);
 						}
 					});
 				});
