@@ -221,15 +221,16 @@
 				var _date;
 				$('#btnId').on('click', function() {
 					$('#mioId').yue_date({
-//						type:'notime',
+						type:'notime',
 						callback: function(result) {
 							_date = result.date;
-							$('#btnId').val(result.hour+':'+result.minute);
+							$('#btnId').val(result.year+'-'+result.month+'-'+ result.day);
 						}
 					});
 				});
 				$('#btnEndId').on('click', function() {
 					$('#mioId').yue_date({
+						type:'all',
 						date: new Date(_date),
 						callback: function(result) {
 							$('#btnEndId').val(result.hour+':'+result.minute);
