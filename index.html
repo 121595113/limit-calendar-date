@@ -31,33 +31,11 @@
 
 	<body>
 		<label>选择一个起始时间</label>
-		<input class="icoCls" type="text" id="btnId" readOnly>
+		<input class="icoCls" data-yue-date="notime" data-calTitle="我是日历"  type="text">
 		<label>选择一个结束时间</label>
-		<input class="icoCls" type="text" id="btnEndId" readOnly>
-		<div id="mioId"></div>
+		<input class="icoCls" data-yue-date = "onlytime" data-timeTitle="我是时间" type="text">
+		<label>选择一个结束时间</label>
+		<input class="icoCls" data-yue-date = "all" data-calTitle="我是日历" type="text">
 	</body>
-	<script type="text/javascript">
-		$(function() {
-			var _date;
-			$('#btnId').on('click', function() {
-				$('#mioId').yue_date({
-					type: 'notime',
-					callback: function(result) {
-						_date = result.date;
-						$('#btnId').val(result.year + '-' + result.month + '-' + result.day);
-					}
-				});
-			});
-			$('#btnEndId').on('click', function() {
-				$('#mioId').yue_date({
-					type: 'all',
-					//						date: new Date(_date),
-					callback: function(result) {
-						$('#btnEndId').val(result.year + '-' + result.month + '-' + result.day + " " + result.hour + ':' + result.minute);
-					}
-				});
-			});
-		});
-	</script>
 
 </html>

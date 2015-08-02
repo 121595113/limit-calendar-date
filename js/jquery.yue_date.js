@@ -350,4 +350,53 @@
 			window.calendar = new calendar();
 		});
 	};
+	//遍历元素
+	$(function() {
+		$("input[data-yue-date]").each(function(index) {
+			if (index == 0) {
+				var doc = window.document;
+				this.mioId = document.createElement('div');
+				this.mioId.setAttribute('id', 'mioId');
+				doc.body.appendChild(this.mioId);
+			}
+			$(this).attr('readonly', '')
+			$(this).on('click', function() {
+				var that = $(this),
+					type = $(this).attr('data-yue-date');
+				if (type == 'notime') {
+					var calTitle = $(this).attr('data-calTitle');
+					$('#mioId').yue_date({
+						type: type,
+						calTitle: calTitle,
+						callback: function(result) {
+							_date = result.date;
+							that.val(result.year + '-' + result.month + '-' + result.day);
+						}
+					});
+				} else if (type == 'onlytime') {
+					var timeTitle = $(this).attr('data-timeTitle');
+					$('#mioId').yue_date({
+						type: type,
+						timeTitle: timeTitle,
+						callback: function(result) {
+							_date = result.date;
+							that.val(result.hour + ':' + result.minute);
+						}
+					});
+				} else {
+					var calTitle = $(this).attr('data-calTitle'),
+						timeTitle = $(this).attr('data-timeTitle');
+					$('#mioId').yue_date({
+						type: type,
+						calTitle: calTitle,
+						timeTitle: timeTitle,
+						callback: function(result) {
+							_date = result.date;
+							that.val(result.year + '-' + result.month + '-' + result.day + " " + result.hour + ':' + result.minute);
+						}
+					});
+				}
+			})
+		})
+	});
 }));
