@@ -3,242 +3,61 @@
 
 	<head>
 		<meta charset="utf-8">
-		<title>时间空间</title>
+		<title>时间控件</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-		<script type="text/javascript">
-			var docEle = document.documentElement;
-			docEle.style.fontSize = parseInt(docEle.getBoundingClientRect().width) / 16 + 'px';
-		</script>
-		<!--<link rel="stylesheet" type="text/css" href="./css/basic.css">-->
-		<style>
-			html,body{
-			            margin: 0;
-			            padding: 0;
-			        }
-			        * {-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;}
-			        label{
-			            margin: 0.2rem;
-			            color: coral;
-			            font-size: 0.8rem;
-			            font-weight: bold;
-			        }
-			        .icoCls{
-			            display: block;
-			            width: 96%;
-			            margin: 0 auto;
-			            text-align: center;
-			            padding: 0.3rem 0;
-			            background: #afb;
-			            color: #99f;
-			            font-size: 0.7rem;
-			        }
-			
-			
-			        .g-mainpanel{
-			            position: absolute;
-			            bottom:0;
-			            left: 0;
-			            width: 100%;
-			            z-index: 10000;
-			        }
-			        .u-panel{
-			            background: #f7f7f7;
-			            padding: 0 0.5rem;
-			            margin: 0 auto;            
-			            text-align: center;
-			        }
-			        .u-panel .u-selectday{
-			            width: 100%;
-			        }
-			        .u-panel .u-selectday div{
-			            font-size: 0.9rem;
-			            width: 50%;
-			            display: inline-block;
-			            white-space: nowrap;
-			            vertical-align: top;
-			            height: 2rem;
-			        }
-			
-			        .u-panel table {
-			          width: 100%;
-			          height: 2rem;
-			          border-collapse: collapse;
-			          table-layout: fixed;
-			          color: #4eccc4;
-			          border-bottom: 1px solid #4eccc4;
-			          font-size: 0.5rem;
-			        }
-			        .u-panel .u-title{
-			            display: inline-block;
-			            background:green;
-			            background: #4eccc4;
-			            border: 1px solid #4eccc4;
-			            padding: 0.4rem 0.8rem;
-			            font-size: 0.6rem;
-			            color: #fff;
-			            margin: 0.5rem 0;
-			        }
-			        .u-panel .u-cal-table{
-			            width: 100%;
-			            height: 10rem;
-			            display: table;
-			            table-layout: fixed;
-			        }
-			        :focus {
-			          outline: -webkit-focus-ring-color auto 0;
-			        }
-			        .u-panel .u-cal-table .row{
-			            white-space: nowrap;
-			            display: table-row;
-			        }
-			        .u-panel .u-cal-table .row>div{
-			            display: table-cell;
-			            vertical-align: middle;
-			            font-size: 0.5rem;
-			            color: #454545;
-			        }
-			
-			        .u-panel .u-cal-table .active{
-			            background:#4eccc4;
-			        }
-			        .u-panel .bottom{
-			            overflow: hidden;
-			        }
-			        .u-panel .bottom a{
-			            float: right;
-			            padding: 0.4rem 0.7rem;
-			            margin-bottom: 1rem;
-			            text-decoration: none;
-			            color: #4eccc4;
-			        }
-			        .u-panel .bottom a:active {
-			            background: rgba(78, 204, 196, .3);
-			        }
-			        .u-panel .bottom>a:nth-child(0){
-			        
-			        }
-			
-			        .u-timepanel .u-timeselectday{
-			            font-size: 0.9rem;
-			            width: 100%;
-			            display: table;
-			            white-space: nowrap;
-			            vertical-align: top;
-			            height: 2rem;
-			        }
-			        .u-timepanel .u-timeselectday div{
-			            display: table-cell;
-			            vertical-align: middle;
-			            width: 33.33333333333333%;
-			        }
-			        
-			        .u-timepanel .u-realtime {
-			            width: 100%;
-			            margin: 0 auto;
-			            margin-top: 1rem;
-			            position: relative;
-			            zoom: 1;
-			            display: -webkit-box;
-			            display: -webkit-flex;
-			            display: -ms-flexbox;
-			            display: flex;
-			            -webkit-box-pack: center;
-			            -webkit-justify-content: center;
-			            justify-content: center;
-			        }
-			
-			        .u-timepanel .u-realtime>div{
-			            max-width: 100%;
-			            -webkit-box-flex: 1;
-			            -webkit-flex: 1 auto;
-			            -ms-flex: 1 auto;
-			            flex: 1 auto;
-			        }
-			
-			        .u-timepanel .u-realtime .topicon{
-			            width: 1rem;
-			            height: 10px;
-			            background: url(./img/top.png) no-repeat center;
-			            -webkit-background-size: 100% 100%;
-			            background-size: 100% 100%;
-			            margin: 0 auto;
-			        }
-			        .u-timepanel .u-realtime .bottomicon{
-			            width: 1rem;
-			            height: 10px;
-			            background: url(./img/bottom.png) no-repeat center;
-			            -webkit-background-size: 100% 100%;
-			            background-size: 100% 100%;
-			            margin: 0 auto;
-			        }
-			        .u-timepanel .u-realtime .middlemain{
-			            height: 120px;
-			            overflow: hidden;
-			            margin: 20px 0;
-			            position: relative;
-			        }
-			        .u-timepanel .u-realtime .iscroll>div{
-			            height: 40px;
-			            line-height: 40px;
-			            color: #454545;
-			            font-size: 0.9rem;
-			        }
-			        .u-timepanel .timeleft>div:nth-child(1){
-			            height: 40px;
-			            width: 100%;
-			            line-height: 40px;
-			            border-top: 1px solid #4eccc4;
-			            background: rgba(78, 204, 196, 0.34);
-			            border-bottom: 1px solid #4eccc4;
-			            position: absolute;
-			            top:70px;
-			            left: 0;
-			        }
-			        .u-timepanel .bottom a{
-			            margin-top: 20px;
-			        }
-			
-			        /*蒙层*/
-			        .u-h-shadow{
-			            width:100%; pointer-events:auto;height:100%;position:fixed;z-index:999;
-			            left:0px; top:0px; background: rgba(0, 0, 0, 0.6);
-			        }
-		</style>
-	</head>
-
-	<label>选择一个起始时间</label>
-	<input class="icoCls" type="text" id="btnId" readOnly>
-	<label>选择一个结束时间</label>
-	<input class="icoCls" type="text" id="btnEndId" readOnly>
-	<div id="mioId"></div>
-
-	<body>
 		<script src="./js/jquery.min.js"></script>
 		<script src="./js/iscroll.js"></script>
 		<script src="./js/jquery.yue_date.js"></script>
-		<script type="text/javascript">
-			$(function() {
-				var _date;
-				$('#btnId').on('click', function() {
-					$('#mioId').yue_date({
-						type:'notime',
-						callback: function(result) {
-							_date = result.date;
-							$('#btnId').val(result.year+'-'+result.month+'-'+ result.day);
-						}
-					});
-				});
-				$('#btnEndId').on('click', function() {
-					$('#mioId').yue_date({
-						type:'all',
-						date: new Date(_date),
-						callback: function(result) {
-							$('#btnEndId').val(result.hour+':'+result.minute);
-						}
-					});
+		<link rel="stylesheet" type="text/css" href="css/yue_date.css" />
+		<style type="text/css">
+			label {
+				margin: .4em;
+				color: coral;
+				font-size: 1em;
+				font-weight: bold;
+			}
+			.icoCls {
+				display: block;
+				width: 96%;
+				margin: 0 auto;
+				text-align: center;
+				padding: .6em 0;
+				background: #afb;
+				color: #99f;
+				font-size: 1em;
+			}
+		</style>
+	</head>
+
+	<body>
+		<label>选择一个起始时间</label>
+		<input class="icoCls" type="text" id="btnId" readOnly>
+		<label>选择一个结束时间</label>
+		<input class="icoCls" type="text" id="btnEndId" readOnly>
+		<div id="mioId"></div>
+	</body>
+	<script type="text/javascript">
+		$(function() {
+			var _date;
+			$('#btnId').on('click', function() {
+				$('#mioId').yue_date({
+					type: 'notime',
+					callback: function(result) {
+						_date = result.date;
+						$('#btnId').val(result.year + '-' + result.month + '-' + result.day);
+					}
 				});
 			});
-		</script>
-	</body>
+			$('#btnEndId').on('click', function() {
+				$('#mioId').yue_date({
+					type: 'all',
+					//						date: new Date(_date),
+					callback: function(result) {
+						$('#btnEndId').val(result.year + '-' + result.month + '-' + result.day + " " + result.hour + ':' + result.minute);
+					}
+				});
+			});
+		});
+	</script>
 
 </html>

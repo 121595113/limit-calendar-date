@@ -37,7 +37,6 @@
 			},
 			finalOptions = $.extend(defaultOptions, options);
 		return this.each(function() {
-
 			var doc = window.document;
 			//蒙层构造函数
 			var Overlay = function() {
@@ -81,8 +80,16 @@
 				var self = this;
 				this.$target = $target;
 				this.$mainPanel = $('<div class="g-mainpanel"></div>');
-				this.Layerout1();
-				this.Layerout2();
+				// 判断生成的结构
+				if (finalOptions.type == 'notime') {
+					this.Layerout1();
+				} else if (finalOptions.type == 'onlytime') {
+					this.Layerout2();
+				} else {
+					this.Layerout1();
+					this.Layerout2();
+				}
+
 				//点击蒙板隐藏
 				$(".u-h-shadow").click(function() {
 					self.timeSureFun();
@@ -101,6 +108,7 @@
 					this.setCurrentTime(); // 设置时间
 					this.$timePanel.show();
 					this.$timePanel.css('-webkit-transform', 'translate3d(0px, 0px, 0px)');
+					// 初始化滚动
 					self.loaded();
 					document.addEventListener('touchmove', function(e) {
 						e.preventDefault();
@@ -113,21 +121,29 @@
 					var self = this;
 					// 建立小时分钟时间
 					this.$timePanel = $('<div class="u-timepanel u-panel"></div>');
-					this.$timePanel.css({
-						'-webkit-transform': defaultOptions.translate3d,
-						'-webkit-transition': '-webkit-transform 200ms'
-					});
-					if (finalOptions.type != 'notime') {
-						this.$mainPanel.append(this.$timePanel);
-					}
-					this.$timePanel.hide();
+					this.$mainPanel.append(this.$timePanel);
 
-					var $timeTitle = $('<div class="u-title">' + finalOptions.timeTitle + '</div>'), //标题
-						$timeSelectDay = $('<div class="u-timeselectday"></div>'); //当前时间提示
-					this.$timeSeftSelect = $('<div></div>');
-					this.$timeMiddleSelect = $('<div></div>');
-					this.$timeRightSelect = $('<div>30</div>');
-					$timeSelectDay.append(this.$timeSeftSelect, this.$timeMiddleSelect, this.$timeRightSelect);
+					// 判断初始化是否显示
+					if (finalOptions.type == 'onlytime') {
+						this.$timePanel.css('-webkit-transform', 'translate3d(0px, 0px, 0px)');
+					} else {
+						this.$timePanel.css({
+							'-webkit-transform': defaultOptions.translate3d,
+							'-webkit-transition': '-webkit-transform 200ms'
+						});
+						this.$timePanel.hide();
+					}
+
+					var $timeTitle = $('<div class="u-title">' + finalOptions.timeTitle + '</div>'); //标题
+
+					// 初始化是否显示当前日期
+					if (finalOptions.type != 'onlytime') {
+						var $timeSelectDay = $('<div class="u-timeselectday"></div>'); //当前时间提示
+						this.$timeSeftSelect = $('<div></div>');
+						this.$timeMiddleSelect = $('<div></div>');
+						this.$timeRightSelect = $('<div>30</div>');
+						$timeSelectDay.append(this.$timeSeftSelect, this.$timeMiddleSelect, this.$timeRightSelect);
+					}
 
 					// real time
 					var $realTime = $('<div class="u-realtime"></div>'),
@@ -178,19 +194,25 @@
 					timeBottom.append(timeSure, timeCancell);
 
 					this.$timePanel.append($timeTitle, $timeSelectDay, $realTime, timeBottom);
-
+					//添加到页面
+					this.$target.append(this.$mainPanel);
+					if (finalOptions.type == 'onlytime') {
+						// 初始化滚动
+						this.loaded();
+					}
 					timeSure.on('click', function() {
-						self.timeSureFun();
-						finalOptions.year = parseInt(self.$timeSeftSelect.text());
-						finalOptions.month = self.singleToDouble(parseInt(self.$timeMiddleSelect.text())); //-1
-						finalOptions.day = self.singleToDouble(parseInt(self.$timeRightSelect.text()));
-						finalOptions.date = new Date(finalOptions.year, finalOptions.month - 1, finalOptions.day, finalOptions.hour, finalOptions.minute, 00);
+						if (finalOptions.type != 'onlytime') {
+							finalOptions.year = parseInt(self.$timeSeftSelect.text());
+							finalOptions.month = self.singleToDouble(parseInt(self.$timeMiddleSelect.text())); //-1
+							finalOptions.day = self.singleToDouble(parseInt(self.$timeRightSelect.text()));
+							finalOptions.date = new Date(finalOptions.year, finalOptions.month - 1, finalOptions.day, finalOptions.hour, finalOptions.minute, 00);
+						}
 						finalOptions.callback(finalOptions);
+						self.timeSureFun();
 					});
 					timeCancell.on('click', function() {
 						self.timeSureFun()
 					});
-					this.$target.append(this.$mainPanel);
 				},
 				Layerout1: function() {
 					this.$panel = $('<div class="u-panel"></div>'); // 建立日历
@@ -265,15 +287,15 @@
 					//
 					cancell.on('click', self.timeSureFun);
 					sure.on('click', function() {
-						if (finalOptions.type == 'all' && finalOptions.type != null || finalOptions.type == '') {
-							self.selectTimeFun();
-						} else if (finalOptions.type == 'notime') {
+						if (finalOptions.type == 'notime') {
 							finalOptions.year = parseInt(self.$leftSelect.text());
 							finalOptions.month = self.singleToDouble(parseInt(self.$rightSelect.text())); //-1
 							finalOptions.day = self.singleToDouble(parseInt($('.u-cal-table .active').text()));
 							finalOptions.date = new Date(finalOptions.year, finalOptions.month - 1, finalOptions.day);
 							finalOptions.callback(finalOptions);
 							self.timeSureFun();
+						} else {
+							self.selectTimeFun();
 						}
 					});
 				},
