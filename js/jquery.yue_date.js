@@ -135,7 +135,7 @@
 					}
 
 					var $timeTitle = $('<div class="u-title">' + finalOptions.timeTitle + '</div>'); //标题
-
+					this.$timePanel.append($timeTitle);
 					// 初始化是否显示当前日期
 					if (finalOptions.type != 'onlytime') {
 						var $timeSelectDay = $('<div class="u-timeselectday"></div>'); //当前时间提示
@@ -143,6 +143,7 @@
 						this.$timeMiddleSelect = $('<div></div>');
 						this.$timeRightSelect = $('<div>30</div>');
 						$timeSelectDay.append(this.$timeSeftSelect, this.$timeMiddleSelect, this.$timeRightSelect);
+						this.$timePanel.append($timeSelectDay);
 					}
 
 					// real time
@@ -193,7 +194,7 @@
 						timeSure = $('<a href="javascript:void(0);">确定</a>');
 					timeBottom.append(timeSure, timeCancell);
 
-					this.$timePanel.append($timeTitle, $timeSelectDay, $realTime, timeBottom);
+					this.$timePanel.append($realTime, timeBottom);
 					//添加到页面
 					this.$target.append(this.$mainPanel);
 					if (finalOptions.type == 'onlytime') {
