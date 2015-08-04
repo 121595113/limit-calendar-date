@@ -3,7 +3,6 @@
  * date: 2015/07/28
  * vserion: 1.0
  */
-
 ;
 (function(factory) {
 	if (typeof define === "function" && define.amd) {
@@ -51,9 +50,7 @@
 					doc.body.appendChild(this.shadow);
 				},
 				show: function() {
-					if (!this.shadow) {
-						this.createShadow();
-					}
+					if (!this.shadow) this.createShadow();
 					this.shadow.style.display = "block";
 					var tempHeight = document.body.scrollHeight;
 					try {
@@ -114,9 +111,18 @@
 						e.preventDefault();
 					}, false);
 				}
-
 			}
 			calendar.prototype = {
+				createnum: function(box, parm) { //创建数字
+					for (var j = parm[0]; j <= parm[1]; j++) {
+						if (j == parm[0]) {
+							finalOptions.intervalHeight = $('<div></div>');
+							box.append(finalOptions.intervalHeight);
+						}
+						box.append('<div>' + this.singleToDouble(j) + '</div>')
+						if (j == parm[1]) box.append('<div></div>');
+					}
+				},
 				Layerout2: function() {
 					var self = this;
 					// 建立小时分钟时间
@@ -136,6 +142,7 @@
 
 					var $timeTitle = $('<div class="u-title">' + finalOptions.timeTitle + '</div>'); //标题
 					this.$timePanel.append($timeTitle);
+
 					// 初始化是否显示当前日期
 					if (finalOptions.type != 'onlytime') {
 						var $timeSelectDay = $('<div class="u-timeselectday"></div>'); //当前时间提示
@@ -156,34 +163,21 @@
 						$iscroll1 = $('<div class="iscroll"></div>'),
 						$middleScroll1 = $('<div></div>');
 					$leftRealTime.append($middleScroll1);
-					for (var j = 0; j <= 23; j++) {
-						if (j == 0) {
-							finalOptions.intervalHeight = $('<div></div>');
-							$iscroll1.append(finalOptions.intervalHeight);
-						}
-						$iscroll1.append('<div>' + this.singleToDouble(j) + '</div>')
-						if (j == 23) {
-							$iscroll1.append('<div></div>');
-						}
-					}
+
+					//小时
+					this.createnum($iscroll1, [0, 23]);
+
+					$middleMain1.append($iscroll1);
+					$leftRealTime.append($topIcon, $middleMain1, $bottomIcon);
 
 					var $middleMain2 = $('<div class="middlemain middlemain2"></div>'),
 						$iscroll2 = $('<div class="iscroll"></div>'),
 						$middleScroll2 = $('<div></div>');
 					$rightRealTime.append($middleScroll2);
-					for (j = 0; j <= 59; j++) {
-						if (j == 0) {
-							$iscroll2.append('<div></div>');
-						}
-						$iscroll2.append('<div>' + this.singleToDouble(j) + '</div>');
-						if (j == 59) {
-							$iscroll2.append('<div></div>');
-						}
-					}
-					//小时
-					$middleMain1.append($iscroll1);
-					$leftRealTime.append($topIcon, $middleMain1, $bottomIcon);
+
 					//分钟
+					this.createnum($iscroll2, [0, 59]);
+
 					$middleMain2.append($iscroll2);
 					$rightRealTime.append($topIcon.clone(), $middleMain2, $bottomIcon.clone());
 
@@ -194,13 +188,13 @@
 						timeSure = $('<a href="javascript:void(0);">确定</a>');
 					timeBottom.append(timeSure, timeCancell);
 
-					this.$timePanel.append($realTime, timeBottom);
+					this.$timePanel.append($realTime);
+					this.$timePanel.append(timeBottom);
+
 					//添加到页面
 					this.$target.append(this.$mainPanel);
-					if (finalOptions.type == 'onlytime') {
-						// 初始化滚动
-						this.loaded();
-					}
+					if (finalOptions.type == 'onlytime') this.loaded(); // 初始化滚动
+					//确定取消事件
 					timeSure.on('click', function() {
 						if (finalOptions.type != 'onlytime') {
 							finalOptions.year = parseInt(self.$timeSeftSelect.text());
@@ -229,18 +223,16 @@
 						'</table>'
 					];
 					this.$panel.append($(th.join('')));
-					// 日历，只显示31天内
+					// 日历，只显示35天内
 					var date = finalOptions.date,
 						// currentMonth = defaultOptions.czNum[parseInt(date.getMonth())],
 						currentMonth = this.singleToDouble(parseInt(date.getMonth()) + 1),
-						$tableContainer = $('<div></div>'),
+						$tableContainer = $('<div class="tableContainer"></div>'),
 						table = '<div class="u-cal-table">',
 						count = date.getDay() + 1,
 						day = parseInt(date.getTime()) - 24 * 60 * 60 * 1000;
 					for (var i = 1; i <= 35; i++) {
-						if (i === 1 || i % 7 === 1) {
-							table += '<div class="row">';
-						}
+						if (i === 1 || i % 7 === 1) table += '<div class="row">';
 						if (count == i) {
 							count++;
 							day += 24 * 60 * 60 * 1000;
@@ -257,12 +249,8 @@
 						} else {
 							table += '<div class="cell"></div>';
 						}
-						if (i % 7 === 0) {
-							table += '</div>';
-						}
-						if (i === 35) {
-							table += '</div>';
-						}
+						if (i % 7 === 0) table += '</div>';
+						if (i === 35) table += '</div>';
 					}
 					$tableContainer.append($(table));
 					this.$panel.append($tableContainer);
@@ -273,7 +261,7 @@
 					this.$panel.append(bottom);
 					this.$mainPanel.append(this.$panel);
 					this.$target.append(this.$mainPanel);
-
+					//切换日期事件
 					var self = this;
 					$tableContainer.on('click', function(e) {
 						var tar = $(e.target);
@@ -281,11 +269,9 @@
 						self.$leftSelect.text(tar.attr('data-year'));
 						self.$rightSelect.text(self.singleToDouble(parseInt(tar.attr('data-month'))));
 						tar.parents('div.u-cal-table').find('.cell').removeClass('active')
-						if (tar.hasClass('cell')) {
-							tar.addClass('active');
-						}
+						if (tar.hasClass('cell')) tar.addClass('active');
 					});
-					//
+					//确定和取消事件
 					cancell.on('click', self.timeSureFun);
 					sure.on('click', function() {
 						if (finalOptions.type == 'notime') {
@@ -300,13 +286,9 @@
 						}
 					});
 				},
-				singleToDouble: function(num) {
-					if (isNaN(num)) {
-						return -1;
-					}
-					if (0 <= num && num <= 9) {
-						return '0' + num;
-					}
+				singleToDouble: function(num) { //单数变双数
+					if (isNaN(num)) return -1;
+					if (0 <= num && num <= 9) return '0' + num;
 					return num;
 				},
 				timeSureFun: function() { //关闭窗口
@@ -356,7 +338,7 @@
 		$("input[data-yue-date]").each(function(index) {
 			if (index == 0) {
 				var doc = window.document;
-				this.mioId = document.createElement('div');
+				this.mioId = doc.createElement('div');
 				this.mioId.setAttribute('id', 'mioId');
 				doc.body.appendChild(this.mioId);
 			}
@@ -393,7 +375,7 @@
 						timeTitle: timeTitle,
 						callback: function(result) {
 							_date = result.date;
-							that.val(result.year + '-' + result.month + '-' + result.day + " " + result.hour + ':' + result.minute);
+							that.val(result.year + '-' + result.month + '-' + result.day + ' ' + result.hour + ':' + result.minute);
 						}
 					});
 				}
